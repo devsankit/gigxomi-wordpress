@@ -37,18 +37,9 @@ add_action('template_redirect', static function (): void {
         return;
     }
 
-    // Redirect legacy marketplace service URLs to canonical services directory
-    if (preg_match('#^/service(?:/(.*))?$#i', $request_path, $matches)) {
-        $slug = !empty($matches[1]) ? trim($matches[1], '/') : '';
-        $target = $slug !== '' ? 'https://www.gigxomi.com/services/' . $slug : 'https://www.gigxomi.com/discover';
-        wp_redirect(esc_url_raw($target), 301, 'Gigxomi Headless CMS');
-        exit;
-    }
-
-    if (preg_match('#^/services(?:/(.*))?$#i', $request_path, $matches)) {
-        $slug = !empty($matches[1]) ? trim($matches[1], '/') : '';
-        $target = $slug !== '' ? 'https://www.gigxomi.com/services/' . $slug : 'https://www.gigxomi.com/discover';
-        wp_redirect(esc_url_raw($target), 301, 'Gigxomi Headless CMS');
+    // Redirect legacy marketplace service URLs to homepage
+    if (preg_match('#^/services?(?:/.*)?$#i', $request_path)) {
+        wp_redirect('https://www.gigxomi.com/', 301, 'Gigxomi Headless CMS');
         exit;
     }
 
@@ -75,7 +66,7 @@ add_action('template_redirect', static function (): void {
     if (is_singular('post')) {
         $target .= '/' . get_post_field('post_name', get_queried_object_id());
     } elseif (is_singular('service')) {
-        $target = 'https://www.gigxomi.com/services/' . get_post_field('post_name', get_queried_object_id());
+        $target = 'https://www.gigxomi.com/';
     } elseif (is_404()) {
         return;
     }
