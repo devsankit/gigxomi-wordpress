@@ -1,0 +1,10 @@
+# WordPress Git Configuration for Gigxomi Blog
+wp-content/uploads/
+wp-content/cache/
+wp-content/ai1wm-backups/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+.tmb/
+*.log
+.DS_Store
+Thumbs.db
